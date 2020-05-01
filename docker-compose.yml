@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  gateway:
+    container_name: gateway
+    build: './'
+    ports:
+      - "0.0.0.0:80:80"
+      - "0.0.0.0:443:443"
+    volumes:
+      - ./unix-sockets:/unix-sockets
+      - ./sites-enabled:/sites-enabled:ro
+      - ./sites-data:/sites-data:ro
+      - ./ssl-cert:/ssl-cert
+      - ./acme:/root/.acme.sh
+      - ./renew-routines:/renew-routines:ro
+      - ./log:/var/log/nginx
+      - ./entrypoint.sh:/entrypoint.sh:ro
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl-dhparams.pem:/ssl-dhparams.pem:ro
+    network_mode: host

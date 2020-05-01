@@ -1,0 +1,14 @@
+#!/bin/bash
+# -*- coding: utf-8 -*-
+
+tar -xzf gateway.tar.gz --one-top-level=/home/web/docker/gateway
+rm -f gateway.tar.gz setup
+
+chown web:web -R /home/web/docker/gateway
+
+cd /home/web/docker/gateway
+
+docker-compose down
+docker-compose up --build -d
+
+exit 0
