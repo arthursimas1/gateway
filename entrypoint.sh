@@ -36,15 +36,15 @@ if [[ -z "$@" ]]; then
 
   renew_maintainer &
 
-   while sleep 30s; do
-     ps | grep nginx | grep -q -v grep
-     nginx=$?
+  while sleep 30s; do
+    ps | grep nginx | grep -q -v grep
+    nginx=$?
 
-     if [[ $nginx != 0 ]]; then
-       echo "nginx stopped working!"
-       exit 1
-     fi
-   done
+    if [[ $nginx != 0 ]]; then
+      echo "nginx stopped working!"
+      exit 1
+    fi
+  done
 elif [[ "$@" == "reload" ]]; then
   secure_ssl_files
   nginx -s reload
