@@ -18,7 +18,7 @@ else
 fi
 
 echo "compressing source ..."
-tar -czf gateway.tar.gz docker-compose.yml Dockerfile entrypoint.sh nginx.conf ssl-dhparams.pem
+tar -czf gateway.tar.gz docker-compose.yml Dockerfile entrypoint.sh nginx.conf ssl-dhparams.pem default-site
 
 echo "sending compressed source to remote server ..."
 scp gateway.tar.gz setup arthur@esteticasimas.com:~

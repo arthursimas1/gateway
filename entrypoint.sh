@@ -30,6 +30,10 @@ secure_ssl_files() {
 }
 
 if [[ -z "$@" ]]; then
+  mkdir -p -m 600 /etc/nginx/ssl
+  openssl ecparam -name prime256v1 > /etc/nginx/ssl/ecparam.pem
+  echo -e ".\n.\n.\n\n.\n.\n.\n" | openssl req -x509 -newkey ec:/etc/nginx/ssl/ecparam.pem -nodes -days 365 -out /etc/nginx/ssl/cert.pem -keyout /etc/nginx/ssl/privkey.pem
+  echo
   secure_ssl_files
 
   nginx
