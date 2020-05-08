@@ -1,9 +1,9 @@
 server {
-    listen 80 http2 default_server;
-    listen [::]:80 http2 default_server;
+    listen 80 default_server;
+    listen [::]:80 default_server;
 
-    listen 443 ssl http2 default_server;
-    listen [::]:443 ssl http2 default_server;
+    listen 443 ssl default_server;
+    listen [::]:443 ssl default_server;
 
     server_name _;
 
@@ -11,6 +11,11 @@ server {
     ssl_stapling off;
     ssl_certificate /etc/nginx/ssl/cert.pem;
     ssl_certificate_key /etc/nginx/ssl/privkey.pem;
+
+    access_log /var/log/nginx/access-block.log custom_access_log_format;
+
+    # unknown method received
+    error_page 400 =444 /;
 
     return 444;
 }
