@@ -19,7 +19,7 @@ renew() {
 
 renew_maintainer() {
   renew
-  while sleep 30d; do
+  while sleep 1d; do
     renew
   done
 }
