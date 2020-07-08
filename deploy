@@ -9,13 +9,13 @@ quit_signal() {
 
 trap quit_signal HUP INT QUIT TERM
 
-if [[ -f .env ]]; then
-  export $(cat .env | xargs)
-  echo "\`.env' loaded."
-else
-  echo "\`.env' not found. quit."
-  exit 1
-fi
+#if [[ -f .env ]]; then
+#  export $(cat .env | xargs)
+#  echo "\`.env' loaded."
+#else
+#  echo "\`.env' not found. quit."
+#  exit 1
+#fi
 
 echo "compressing source ..."
 tar -czf gateway.tar.gz docker-compose.yml Dockerfile entrypoint.sh nginx.conf ssl-dhparams.pem default-site
@@ -24,7 +24,7 @@ echo "sending compressed source to remote server ..."
 scp gateway.tar.gz setup arthur@esteticasimas.com:~
 
 echo "logging to remote server, setting up files and restarting docker service ..."
-ssh -t arthur@esteticasimas.com "echo ${SERVER_PASSWORD} | sudo -S ./setup"
+ssh -t arthur@esteticasimas.com "sudo ./setup"
 
 echo "cleaning up ..."
 rm -f gateway.tar.gz
